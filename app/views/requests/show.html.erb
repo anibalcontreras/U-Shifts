@@ -1,0 +1,13 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @request.descripcion %>
+</p>
+
+
+<%= render :partial => 'members/form', member: @member, user_id: @request.solicitante_id, turno_id: @request.turno_id, class: "btn btn-secondary"%>
+<%= link_to 'Rechazar', @request, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-secondary" %>
+
+<%= link_to 'Back', :back, class: "btn btn-secondary" %>
+

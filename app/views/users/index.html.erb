@@ -1,0 +1,19 @@
+
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  <% @users.each do |user| %>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"> <%= user.name%></h5>
+          <p class="card-text"> Username: <%= user.username %></p>
+          <p class="card-text"> Email: <%= user.email %></p>
+          <p class="card-text"><%= link_to 'Show', user %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+ 
+<br>
+<%= link_to 'Back', current_user, class: "btn btn-secondary" %>

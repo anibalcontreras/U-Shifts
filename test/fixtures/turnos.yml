@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre_completo: MyString
+  comuna: MyString
+  direccion_conductor: MyString
+  dia: 2022-04-30
+  hora_llegada: 2022-04-30 15:21:37
+  num_pasajeros: 
+  campus: MyString
+  descripcion: MyText
+
+two:
+  nombre_completo: MyString
+  comuna: MyString
+  direccion_conductor: MyString
+  dia: 2022-04-30
+  hora_llegada: 2022-04-30 15:21:37
+  num_pasajeros: 
+  campus: MyString
+  descripcion: MyText

@@ -1,0 +1,37 @@
+<%= form_with(model: resena, local: true) do |form| %>
+  <% if resena.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(resena.errors.count, "error") %> prohibited this reseÑa from being saved:</h2>
+
+      <ul>
+        <% resena.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.number_field :user_id, class: "form-control", :value => @user.id,  placeholder: "Id Usuario que evalua", type: :hidden %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.number_field :turno_id, class: "form-control", :value => @turno.id,  placeholder: "ID turno evaluado", type: :hidden %>
+  </div>
+
+
+  <div class="mb-3">
+    <%= form.label :valoracion %>
+    <%= form.select :valoracion, [1, 2, 3, 4, 5], class:"form-control"%>
+  </div>
+
+  <div class="field">
+    <%= form.text_field :descripcion, class:"form-control", placeholder: "Descripción" %>
+  </div>
+
+  <div class= "mt-3">
+    <div class="actions">
+      <%= form.submit("Reseñar") %>
+    </div>
+  </div>
+<% end %>

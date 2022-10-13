@@ -1,0 +1,23 @@
+<%= form_with(model: @chat, local: true) do |form| %>
+  <% if @chat.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@chat.errors.count, "error") %> prohibited this chat from being saved:</h2>
+
+      <ul>
+        <% @chat.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="mb-3">
+    <%= form.number_field :turno_id, class: "form-control", :value => @turno.id,  placeholder: "ID turno", type: :hidden %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit("Mostrar Chat") %>
+  </div>
+
+<% end %>

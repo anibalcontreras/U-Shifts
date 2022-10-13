@@ -1,0 +1,67 @@
+<%= form_with(model: turno, local: true) do |form| %>
+  <% if turno.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(turno.errors.count, "error") %> prohibited this turno from being saved:</h2>
+
+      <ul>
+        <% turno.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.text_field :nombre_completo, class:"form-control", placeholder: "Nombre completo" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.text_field :comuna, class:"form-control", placeholder: "Comuna" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.text_field :direccion_salida, class:"form-control", placeholder: "Dirección de salida" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.text_field :limite_personas, class:"form-control", placeholder: "Límite de personas" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :direccion %>
+    <%= form.select :direccion, ['Casa Central', 'Lo Contador', 'Oriente', 'San Joaquín', 'Villarrica'], class:"form-control"%>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :tipo %>
+    <%= form.select :tipo, ['Ida', 'Vuelta'], class:"form-control"%>
+  </div>
+
+  <div class="mb-3">
+    <%= form.text_area :descripcion, class:"form-control", placeholder: "Agrega una descripción" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.number_field :user_id, id: :turno_user_id, class: "form-control", value: current_user.id, type: :hidden %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :dia_semana %>
+    <%= form.date_select :dia_semana, class:"form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :hora_salida %>
+    <%= form.time_select :hora_salida, class:"form-control" %>
+  </div>
+
+   <div class="mb-3">
+    <%= form.hidden_field :estado, :value => 'No Realizado' %>
+  </div>
+
+  <%# <%= render :partial => 'chats/form', chat: @chat, turno: @turno %>
+
+  <div class="mb-3">
+    <%= form.submit class: "btn btn-secondary" %>
+  </div>
+<% end %>

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Requests</h1>
+
+
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  <% @requests.each do |request| %>
+    <% if @turno.id.to_i == request.turno_id%>
+      <div class="col">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title"> <%= @users[request.solicitante_id.to_i - 1].username %></h5>
+            <p class="card-text"><%= link_to 'Show', request, class: "btn btn-secondary" %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+
+<br>
+
+<%= link_to 'Back', turnos_path, class: "btn btn-secondary" %>
+

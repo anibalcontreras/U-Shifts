@@ -1,0 +1,26 @@
+<form class="d-flex" action="/search">
+        <input class="form-control me-2" name="q" type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+<br>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+  <% @turnos.each do |turno| %>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= turno.direccion_salida%> - <%= turno.direccion%></h5>
+          <p class="card-text"> Fecha salida: <%= turno.dia_semana %></p>
+          <p class="card-text"> Hora salida: <%= turno.hora_salida %></p>
+          <p class="card-text"><%= link_to 'Show', turno, class: "btn btn-secondary" %></p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+</div>
+ 
+
+
+<br>
+
+<%= link_to 'New Turno', new_turno_path, class: "btn btn-secondary" %>

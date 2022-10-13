@@ -1,0 +1,84 @@
+<div class="jumbotron">
+  <h1 class="display-4">
+    <%= @turno.nombre_completo %>
+  </h1>
+  <p class="lead">
+    <%= @turno.dia_semana %>  |
+    <%= @turno.direccion %>  |
+    <%= @turno.hora_salida %>  
+
+  
+  </p>
+  <hr class="my-4">
+  <p><strong>Dirección salida</strong>: <%= @turno.direccion_salida %></p>
+  <p><strong>Limite de personas</strong>: <%= @turno.limite_personas %></p>
+  <p><strong>Descripción</strong>: <%= @turno.descripcion %></p>
+  <p><strong>Estado</strong>: <%= @turno.estado %></p>
+
+  
+  <% if @turno.user == current_user %>
+    <% if @turno.estado == 'No Realizado'%>
+      <%= link_to 'Back', turnos_path, class: "btn btn-secondary" %>
+      <%= link_to 'Edit', edit_turno_path(@turno), class: "btn btn-secondary" %>
+      <%= link_to 'Destroy', @turno, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-secondary" %> 
+      <%= link_to 'Solicitudes', requests_path(turno_id: @turno.id), class: "btn btn-secondary" %>
+
+      <%= form_with(model: @turno, local: true) do |form| %>
+      <% if @turno.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@turno.errors.count, "error") %> prohibited this turno from being saved:</h2>
+          <ul>
+            <% @turno.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div class="mt-3">
+        <%= form.hidden_field :estado, class:"form-control", :value => 'Realizado', class: "btn btn-secondary" %>
+        <%= form.submit "Terminar Turno", class: "btn btn-secondary" %>
+      </div>
+      <% end %>
+
+    <% else%>
+      <%= link_to 'Back', turnos_path, class: "btn btn-secondary" %>
+      <%= link_to 'Ver Evaluaciones', resenas_path(turno_id: @turno, user_id: current_user), class: "btn btn-secondary" %>
+
+    <% end %>
+
+    <% if @turno.chat.present?%>
+      <div class="mt-3">
+        <%= link_to "Mostrar Chat", chat_path(chat_id: @turno.chat.id, sender_id: current_user.id, turno_id: @turno.id), class: "btn btn-secondary"%>
+      </div>
+    <%# <% else %>
+      <%# <div class="mt-3"> %>
+        <%# <%= render :partial => 'chats/form', chat: @chat, turno: @turno %>
+      <%# </div> %>
+    <% end%>
+
+  <% else %>
+    <% if @turno.requestd?(current_user) %>
+      <% if @turno.estado == 'No Realizado'%>
+        <p><strong>Ya has solicitado el turno</strong></p>
+      <% end %>
+    <% else %>
+      <%if !@turno.users.include? current_user %>
+        <% if @turno.estado == 'No Realizado'%>
+          <%= link_to 'Solicitar', new_request_path(turno_id: @turno), class: "btn btn-secondary" %>
+        <% end %>
+      <% else %>
+        <% if @turno.chat.present?%>
+          <%= link_to "Mostrar Chat", chat_path(chat_id: @turno.chat.id, sender_id: current_user.id, turno_id: @turno.id), class: "btn btn-secondary"%>
+        <% end %>
+        <% if @turno.estado == "Realizado"%>
+          <% if @turno.resenad?(current_user) %>
+            <p><strong>Ya has evaluado al conductor del turno</strong></p>
+          <% else %>
+            <%= link_to 'Evaluar Conductor', new_resena_path(turno_id: @turno, user_id: current_user), class: "btn btn-secondary"%>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <%= link_to 'Back', turnos_path, class: "btn btn-secondary" %>
+  <% end %>
+</div>
